@@ -109,7 +109,35 @@ ADD-AIRPORT
 
 CL-USER 4 : 1 > 
 \end{verbatim}
-
+\item
+\begin{schema}{UpdateAirportOK}
+\Delta AirportSystem\\
+code? : AIRPORT\\
+city? : CITY\\
+\where
+code? \in \dom airports\\
+airports' = airports \oplus \{ code? \mapsto city? \}\\
+\end{schema}
+\begin{schema}{CodeNotInUse}
+\Xi AirportSystem\\
+code? : AIRPORT\\
+response! : Message
+\ST
+code? \notin \dom airports\\
+response!~=~'Code~not~in~use'
+\end{schema}
+\[ UpdateAirport~\hat{=}~~~~(UpdateAirportOK\wedge Success) \oplus CodeNotInUse\]
+\item
+$
+airports =
+\{
+YUL \mapsto Dorval,\\
+LCY  \mapsto London UK,\\
+LHR \mapsto London UK,\\
+MIL \mapsto Milan,\\
+SFO \mapsto San Francisco,\\
+SDQ \mapsto Santo Domingo\\
+\}$
 \end{enumerate}
 
 
