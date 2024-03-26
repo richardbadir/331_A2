@@ -76,6 +76,15 @@ code? \in \dom airports\\
 response!~=~'Code~already~in~use'
 \end{schema}
 
+\begin{schema}{AddAirportOK}
+\Delta AirportSystem\\
+code? : AIRPORT\\
+city? : CITY\\
+\where
+code? \notin \dom airports\\
+airports' = airports \cup \{ code? \mapsto city? \}\\
+\end{schema}
+\[ AddAirport~\hat{=}~~~~(AddAirportOK\wedge Success) \oplus CodeAlreadyInUse\]
 \end{enumerate}
 
 
