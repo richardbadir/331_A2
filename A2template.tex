@@ -85,10 +85,35 @@ code? \notin \dom airports\\
 airports' = airports \cup \{ code? \mapsto city? \}\\
 \end{schema}
 \[ AddAirport~\hat{=}~~~~(AddAirportOK\wedge Success) \oplus CodeAlreadyInUse\]
+\item
+\begin{verbatim}
+CL-USER 1 > (defvar *airports*
+  '((YUL . Montreal)
+    (LCY .London_UK)
+    (LHR . London_UK)
+    (MIL . Milan)
+    (SFO . San_Francisco)
+    (SDQ . Santo_Domingo)))
+*AIRPORTS*
+
+CL-USER 2 : 1 > *airports*
+((YUL . MONTREAL) (LCY .LONDON_UK) (LHR . LONDON_UK) (MIL . MILAN) (SFO . SAN_FRANCISCO) (SDQ . SANTO_DOMINGO))
+
+CL-USER 3 : 1 > (defun add-airport (code city)
+  (if (find code *airports* :key #'car)
+      (print "ok")
+      (progn
+        (push (cons code city) *airports*)
+        (print "Code already in use."))))
+ADD-AIRPORT
+
+CL-USER 4 : 1 > 
+\end{verbatim}
+
 \end{enumerate}
 
 
-\textbf{Remove Everything After this line ---------------------------------}\\
+\textbf{Remove Everything After this line ---------------------------------------------}\\
 \newpage
 
 \section*{Part 1:  Temperature monitoring system with the Z specification}
