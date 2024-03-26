@@ -50,6 +50,32 @@ CL-USER 4 >
 \item $monitored$=dom($airports$)
 \item $airports$ is a variable that holds one to many mappings of objects of type AIRPORT to objects of type CITY. dom($airports)=\mathbb{P}$ AIRPORT. codomain($airports)= \mathbb{P}$ CITY. $airports = \mathbb{P}$ AIRPORT$\mapsto$ CITY
 \item This should be an unordered structe, because order doesn't matter in this scenario, nor does it make sense. Looking up in an unordered structure would also be a lot faster than in an ordered one $O(1)$ vs $O(n)$. Assuming a Hashmap or any variation is not permitted, a set containing tuples of type (AIRPORT, CITY) should be used. There should be a restriction on the domain of this data structure, indicating no head of tuple can be a duplicate of another head. Lists of strict length 2 with types $\langle$AIRPORT, CITY$\rangle$ could also be used to replace the tuples.
+\newpage
+\item 
+\begin{schema}{AirportSystem}
+codes~:~\mathbb{P}~AIRPORT\\
+airports : AIRPORT \rightarrow CITY \texttt{~~~~~--non-injective, surjective}\\
+cities : ~\mathbb{P}~CITY\\
+\where
+codes = \dom airports\\
+deployed = \ran airports
+\end{schema}
+\item
+\begin{schema}{Success}
+\Xi AirportSystem\\
+response! : MESSAGE
+\where
+response!~=~'ok'\\
+\end{schema}
+\begin{schema}{CodeAlreadyInUse}
+\Xi AirportSystem\\
+code? : AIRPORT\\
+response! : Message
+\ST
+code? \in \dom airports\\
+response!~=~'Code~already~in~use'
+\end{schema}
+
 \end{enumerate}
 
 
