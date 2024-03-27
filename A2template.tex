@@ -99,13 +99,13 @@ CL-USER 1 > (defvar *airports*
 CL-USER 2 : 1 > *airports*
 ((YUL . MONTREAL) (LCY .LONDON_UK) (LHR . LONDON_UK) (MIL . MILAN) (SFO . SAN_FRANCISCO) (SDQ . SANTO_DOMINGO))
 
-CL-USER 3 : 1 > (defun add-airport (code city)
+CL-USER 3 : 1 > (defun addAirport (code city)
   (if (find code *airports* :key #'car)
-      (print "ok")
+      (print "Code already in use.")
       (progn
         (push (cons code city) *airports*)
-        (print "Code already in use."))))
-ADD-AIRPORT
+        (print "ok"))))
+ADDAIRPORT
 
 CL-USER 4 : 1 > 
 \end{verbatim}
@@ -138,6 +138,47 @@ MIL \mapsto Milan,\\
 SFO \mapsto San Francisco,\\
 SDQ \mapsto Santo Domingo\\
 \}$
+\item\begin{verbatim}
+
+CL-USER 1 > (defvar *airports*
+  '((YUL . Montreal)
+    (LCY .London_UK)
+    (LHR . London_UK)
+    (MIL . Milan)
+    (SFO . San_Francisco)
+    (SDQ . Santo_Domingo)))
+*AIRPORTS*
+
+CL-USER 2 > (defun updateAirport (code new-city)
+  (let ((existing (assoc code *airports* :test #'equal)))
+    (if existing
+        (progn
+          (setf (cdr existing) new-city)
+          (print  "ok"))
+        (print "Code not in use."))))
+UPDATEAIRPORT-CITY
+
+CL-USER 3 > (defun updateAirport (code new-city)
+  (let ((existing (assoc code *airports* :test #'equal)))
+    (if existing
+        (progn
+          (setf (cdr existing) new-city)
+          (print  "ok"))
+        (print "Code not in use."))))
+UPDATEAIRPORT
+
+CL-USER 4 > (updateAirport 'YUL 'Dorval)
+
+"ok" 
+"ok"
+
+CL-USER 5 > (updateAirport 'LL 'GG)
+
+"Code not in use." 
+"Code not in use."
+
+CL-USER 6 > 
+\end{verbatim}
 \end{enumerate}
 
 

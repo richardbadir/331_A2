@@ -24,10 +24,10 @@ CL-USER 3 : 1 > *airports*
 
 CL-USER 4 : 1 > (defun add-airport (code city)
   (if (find code *airports* :key #'car)
-      (print "ok")
+      (print "Code already in use.")
       (progn
         (push (cons code city) *airports*)
-        (print "Code already in use."))))
+        (print "ok"))))
 ADD-AIRPORT
 
 CL-USER 5 : 1 > 
