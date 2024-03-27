@@ -227,6 +227,24 @@ CL-USER 3 > (deleteAirport 'YUL)
 
 CL-USER 4 > 
 \end{verbatim}
+\item
+\begin{schema}{GetAllAirportsOK}
+\Xi AirportSystem\\
+city? : CITY\\
+airports! : \mathbb{P} AIPORT
+\where
+city? \in \ran airports\\
+airports! = airports^{-1} city?
+\end{schema}
+\begin{schema}{CityNotFound}
+\Xi AirportSystem\\
+city? : CITY\\
+response! : MESSAGE
+\where
+city? \notin \ran airports\\
+response!="City not found"
+\end{schema}
+\[ GetAllAirports~\hat{=}~~~~(GetAllAirportsOK\wedge Success) \oplus CityNotFound\]
 \end{enumerate}
 
 
