@@ -179,6 +179,24 @@ CL-USER 5 > (updateAirport 'LL 'GG)
 
 CL-USER 6 > 
 \end{verbatim}
+\item
+\begin{schema}{DeleteAirportOK}
+\Delta AirportSystem\\
+code? : AIRPORT\\
+\where
+code? \in \dom airports\\
+airports' = \{ code? \}  \ndres airports \\
+\end{schema}
+\begin{schema}{CodeNotInUse}
+\Xi AirportSystem\\
+code? : AIRPORT\\
+response! : Message
+\ST
+code? \notin \dom airports\\
+response!~=~'Code~not~in~use'
+\end{schema}
+\[ DeleteAirport~\hat{=}~~~~(DeleteAirportOK\wedge Success) \oplus CodeNotInUse\]
+\item
 \end{enumerate}
 
 
